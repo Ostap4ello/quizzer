@@ -1,17 +1,17 @@
 import wrappers.display
-import pandas as pd
-import re
-from random import randint
+import wrappers.table
 
 
 def main():
     # Load the data
-    df = pd.read_excel("tables/all.xlsx")
+    table = wrappers.table.QuizTable("tables/all.xlsx")
 
     disp = wrappers.display.Display()
 
     while True:
-        category = 1
+        category = wrappers.table.MATH_EXPRESSION
+        col = 1
+        answerText = questionText = ""
 
         disp.setQuestion("Next Question ?")
         disp.clearAnswer()
@@ -19,15 +19,9 @@ def main():
         print()
         input("Press Enter to show next question...")
 
-        qIndex = randint(0, len(df))
-
-        # Get the question and answer
-        text = df.values[qIndex][category]
-        match = re.match(r'^[0-9]+\.([^=]*)(.*)$', text)
-        questionText = "null"
-        answerText = "null"
-        if match is not None:
-            questionText, answerText = match.groups()
+        _ = table.getRandomQuestionAndAnswer(col, category)
+        if _ is not None:
+            questionText, answerText = _
 
         disp.setQuestion(questionText)
 
