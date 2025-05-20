@@ -3,10 +3,10 @@ import wrappers.table
 
 
 def main():
-    # Load the data
     table = wrappers.table.QuizTable("tables/all.xlsx")
-
     disp = wrappers.display.Display()
+
+    disp.sleepUntillButtonIsPressed("halo")
 
     while True:
         category = wrappers.table.MATH_EXPRESSION
