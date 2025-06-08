@@ -2,8 +2,9 @@ import pandas as pd
 import re
 from random import randint
 
-# enum: column types
-MATH_EXPRESSION = 0
+class TableColumnTypes:
+    MATH_EXPRESSION = 0
+    count = 1;
 
 # regexes
 _MATH_EXPRESSION_REGEX = r'^[0-9]+\.([^=]*)(.*)$'
@@ -23,7 +24,7 @@ class QuizTable:
     def getQuestionAndAnswer(self, col: int, row: int, category: int):
         entry = self._table.values[row][col]
         match = None
-        if category == MATH_EXPRESSION:
+        if category == TableColumnTypes.MATH_EXPRESSION:
             match = re.match(_MATH_EXPRESSION_REGEX, entry)
         else:
             print('Unsupported cathegory')

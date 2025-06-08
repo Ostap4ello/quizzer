@@ -1,39 +1,8 @@
-import wrappers.display
-import wrappers.table
+import streamlit as st
 
-
-def main():
-    # Load the data
-    table = wrappers.table.QuizTable("tables/all.xlsx")
-
-    disp = wrappers.display.Display()
-
-    while True:
-        category = wrappers.table.MATH_EXPRESSION
-        col = 1
-        answerText = questionText = ""
-
-        disp.setQuestion("Next Question ?")
-        disp.clearAnswer()
-
-        print()
-        input("Press Enter to show next question...")
-
-        _ = table.getRandomQuestionAndAnswer(col, category)
-        if _ is not None:
-            questionText, answerText = _
-
-        disp.setQuestion(questionText)
-
-        # Display the answer
-        print()
-        input("Press Enter to see the answer...")
-        disp.setAnswer(answerText)
-
-        # Clear the previous output
-        print()
-        input("Press Enter to continue...")
-
-
-if __name__ == "__main__":
-    main()
+pg = st.navigation([
+    st.Page("pages/quiz.py", title="Quiz", icon=":material/sports_esports:"),
+    st.Page("pages/settings.py", title="Settngs", icon=":material/settings:"),
+    st.Page("pages/about_me.py", title="About me", icon=":material/favorite:"),
+])
+pg.run()
