@@ -3,7 +3,7 @@ from wrappers.display import Display, DisplayState
 from wrappers.table import QuizTable, TableColumnTypes
 
 if "quiztable" not in st.session_state:
-    st.session_state.quiztable = QuizTable("tables/kviz.xlsx")
+    st.session_state.quiztable = QuizTable("tables/all.xlsx")
 
 if "disp" not in st.session_state:
     st.session_state.disp = Display()
@@ -26,7 +26,6 @@ if disp.getState() == DisplayState.INIT:
     if _ is not None:
         glob.questionText, glob.answerText = _
     else:
-        disp._state = DisplayState.INIT
         st.rerun()
 
 elif disp.getState() == DisplayState.SHOWING_QUESTION:

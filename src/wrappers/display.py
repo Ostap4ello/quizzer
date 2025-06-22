@@ -35,8 +35,7 @@ class Display():
         self._answerField.write(f_s, unsafe_allow_html=True)
 
     def setButton(self, s: str, f=None):
-        self._button.empty()
-        self._button.button(s,on_click=f)
+        self._button.button(s,on_click=f, use_container_width=True)
 
     def clearTitle(self):
         self._title.title("")
