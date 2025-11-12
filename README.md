@@ -13,6 +13,6 @@ Simple question-answer quiz with streamlit frontend.
 
 this version was made in rush, so what it does is:
 - load ./tables/all.xlsx;
-- load and parse equasions from 2nd col;
+- load and parse equasions from 1st col;
 - show random equasions in streamlit frontend
 - uses in-console prompts for each step
