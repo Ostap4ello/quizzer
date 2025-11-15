@@ -1,13 +1,23 @@
 import pandas as pd
 import re
-from random import randint
+from random import randrange
 
-class TableColumnTypes:
-    MATH_EXPRESSION = 0
-    count = 1;
+MATH_EXPRESSION = 0
+QUESTION_ANSWER = 1
 
-# regexes
-_MATH_EXPRESSION_REGEX = r'^([0-9]+\.)?([^=]*)(.*)$'
+TableColumnTypes = {
+    MATH_EXPRESSION: {
+        "column_name": "MATH",
+        # [<number>.] <expression> = <result>
+        "regex": r"^([0-9]+\.)?([^=]*)(.*)$",
+    },
+    QUESTION_ANSWER: {
+        "column_name": "QUESTION",
+        # [<number>.] <question>? -> <answer>
+        "regex": r"^([0-9]+\.)?(.*\?) -\> (.*)$",
+    },
+}
+
 
 class QuizTable:
     def __init__(self, table_exel):
@@ -21,22 +31,37 @@ class QuizTable:
                 return row
             row += 1
 
-    def getQuestionAndAnswer(self, col: int, row: int, category: int) -> tuple | None:
+    def getColumns(self) -> list[str]:
+        column_list = self._table.columns.tolist()
+        return column_list
+
+    def _getQuestionAndAnswer(self, col: int, row: int, category: int) -> tuple | None:
         entry = self._table.values[row][col]
         match = None
-        if category == TableColumnTypes.MATH_EXPRESSION:
-            match = re.match(_MATH_EXPRESSION_REGEX, entry)
-        else:
-            print('Unsupported cathegory')
-            return None
+
+        match = re.match(TableColumnTypes[category]["regex"], entry)
 
         if match is not None:
+            # Get last two groups: question and answer
             return (match.groups()[-2].strip(), match.groups()[-1].strip())
         else:
-            print('No match found')
             return None
 
-    def getRandomQuestionAndAnswer(self, col: int, category: int) -> tuple | None:
-        row = randint(0, self.getLen(col) - 1)
-        return self.getQuestionAndAnswer(col, row, category)
+    def getRandomQuestionAndAnswer(self, col: int) -> tuple | None:
+        if col < 0 or col >= len(self._table.columns):
+            return None
 
+        category_name = self._table.columns[col]
+        category = None
+        for key, value in TableColumnTypes.items():
+            if value["column_name"] == category_name:
+                category = key
+                break
+        if category is None:
+            return None
+
+        if self.getLen(col) == 0:
+            return None
+
+        row = randrange(0, self.getLen(col))
+        return self._getQuestionAndAnswer(col, row, category)
