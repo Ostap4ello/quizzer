@@ -174,4 +174,5 @@ cython_debug/
 .pypirc
 
 tables/*
-**/__pycache__
+__pycache__/
+*.bak
