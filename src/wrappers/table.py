@@ -7,17 +7,18 @@ QUESTION_ANSWER = 1
 
 TableColumnTypes = {
     MATH_EXPRESSION: {
-        "column_name": "MATH",
+        "column_typename": "MATH",
         # [<number>.] <expression> = <result>
         "regex": r"^([0-9]+\.)?([^=]*)(.*)$",
     },
     QUESTION_ANSWER: {
-        "column_name": "QUESTION",
+        "column_typename": "QUESTION",
         # [<number>.] <question>? -> <answer>
         "regex": r"^([0-9]+\.)?(.*\?) -\> (.*)$",
     },
 }
 
+column_type_regex = r"^.*#([A-Z_]+)$"
 
 class QuizTable:
     def __init__(self, table_exel):
@@ -51,12 +52,17 @@ class QuizTable:
         if col < 0 or col >= len(self._table.columns):
             return None
 
-        category_name = self._table.columns[col]
+        category_name = str(self._table.columns[col])
         category = None
         for key, value in TableColumnTypes.items():
-            if value["column_name"] == category_name:
+            _ = re.match(column_type_regex, category_name)
+            if _ is None:
+                continue
+
+            if value["column_typename"] == _.groups()[0]:
                 category = key
                 break
+
         if category is None:
             return None
 
