@@ -2,15 +2,15 @@
 
 Simple question-answer quiz with streamlit frontend.
 
-## Old Disclaimer: Things We Said When We Were Very Stressed (previousely just 'Disclaimer') (You may skip it)
+## Old Disclaimer: Things We Said When We Were Very Stressed (previously just 'Disclaimer') (You may skip it)
 
 > this version was made in rush, so what it does is:
 > - load ./tables/all.xlsx;
-> - load and parse equasions from 2nd col; (NOTE: yeah, we didn't parse the first col, back then)
-> - show random equasions in streamlit frontend
+> - load and parse equations from 2nd col; (NOTE: yeah, we didn't parse the first col, back then)
+> - show random equations in streamlit frontend
 > - uses in-console prompts for each step
 
-**NOTE:** That (first) version was made in a panic, and has since been maintained with relative, almost worrying calm, actually, so next versions (firstly) exist and (secondly) differ from that version.
+**NOTE:** That (first) version was made in a panic, and has since been maintained with relative, almost worrying calm, actually, next versions (firstly) exist and (secondly) differ from that version.
 
 ## Functionality
 
@@ -28,9 +28,9 @@ Simple question-answer quiz with streamlit frontend.
         - for `#QUESTION` type: `<question>? -> <answer>`, where:
             - `<question>` is the question text
             - `<answer>` is the answer text
-        - for `#MATH` type: `<equasion> = <answer>`, where:
-            - `<equasion>`: a mathematical equasion (question) to be evaluated
-            - `<answer>`: the answer to the equasion
+        - for `#MATH` type: `<equation> = <answer>`, where:
+            - `<equation>`: a mathematical equation (question) to be evaluated
+            - `<answer>`: the answer to the equation
 1. Setup the app:
     - setup venv, install requirements from ./requirements.txt, enter venv:
         ```bash
